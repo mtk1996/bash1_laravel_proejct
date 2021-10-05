@@ -1,0 +1,73 @@
+users
+=====
+email    password   name      role('user','admin')
+
+
+category
+========
+slug    name
+
+
+
+product
+========
+category_id   user_id     title     description     image       total_qty    price
+ 1                                                      12            10000
+                                                                  3000
+
+
+size
+====
+slug    name
+
+
+color
+=====
+slug    name
+
+
+size_product
+============
+size_id     product_id
+
+
+color_product
+=============
+color_id    product_id
+
+
+carts
+=====
+user_id     product_id      qty
+
+
+order
+=====
+user_id     product_id      qty   total_price    status('pending','success','cancel')
+
+
+
+
+
+-Category
+Color
+Size
+Product
+Order and filter
+
+Frontend Product
+product filter (name , category , size , color)
+Product Feedback
+Cart
+Order
+
+
+
+
+
+
+
+
+
+
+
