@@ -1,10 +1,10 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return 'home page';
-});
+Route::get('/', 'PageController@home');
+Route::get('/product/{slug}', 'PageController@productDetail');
 
 
 Route::get('admin/login', 'Admin\AuthController@showLogin');
@@ -36,4 +36,8 @@ Route::get('/admin/auth', function () {
 Route::get('/logout', function () {
     auth()->logout();
     return 'logout';
+});
+
+Route::get('/test', function () {
+    return Category::withCount('product')->get();
 });

@@ -22,7 +22,7 @@
         <tr>
             <td>{{$c->id}}</td>
             <td>
-                <img src="{{asset('public/images/'.$c->image)}}" class="thumbnail" width="150" alt="">
+                <img src="{{asset($c->image_url)}}" class="thumbnail" width="150" alt="">
             </td>
             <td>{{$c->title}}</td>
             <td>{{$c->total_quantity}}</td>
