@@ -9,6 +9,8 @@
     <link rel="stylesheet"
         href="https://demos.creative-tim.com/argon-dashboard/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://demos.creative-tim.com/argon-dashboard/assets/css/argon.min.css?v=1.2.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     <style>
         #header {
             height: 50vh;
@@ -53,10 +55,17 @@
                             User
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Login</a>
-                            <a class="dropdown-item" href="#">Register</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Welcome Guy!</a>
+                            @guest
+                            <a class="dropdown-item" href="{{url('/login')}}">Login</a>
+                            <a class="dropdown-item" href="{{url('/register')}}">Register</a>
+                            @endguest
+
+                            @auth
+                            <a class="dropdown-item" href="#">Welcome {{auth()->user()->name}}!</a>
+                            <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
+                            @endauth
+
+
                         </div>
                     </li>
                     <li class="nav-item">
@@ -87,8 +96,11 @@
                         recusandae quasi tempore placeat aliquam autem, a soluta nisi totam
                         temporibus dolorem!
                     </p>
-                    <a href="" class="btn btn-outline-primary">SignUp</a>
-                    <a href="" class="btn btn-primary">Login</a>
+                    @guest
+                    <a href="{{url('/register')}}" class="btn btn-outline-primary">SignUp</a>
+                    <a href="{{url('/login')}}" class="btn btn-primary">Login</a>
+                    @endguest
+
                 </div>
                 <div class="col-md-6 text-center">
                     <img class=""
@@ -153,6 +165,17 @@
         src="https://demos.creative-tim.com/argon-dashboard/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js">
     </script>
     <script src="https://demos.creative-tim.com/argon-dashboard/assets/js/argon.min.js?v=1.2.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        @if(session()->has('success'))
+        toastr.success("{{session()->get('success')}}");
+        @endif
+
+        @if(session()->has('error'))
+        toastr.error("{{session()->get('error')}}");
+        @endif
+
+    </script>
 </body>
 
 </html>

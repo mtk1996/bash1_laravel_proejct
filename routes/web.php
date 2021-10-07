@@ -3,6 +3,12 @@
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/register', 'AuthController@showRegister');
+Route::post('/register', 'AuthController@register');
+Route::get('/login', 'AuthController@showLogin');
+Route::post('/login', 'AuthController@login');
+Route::get('/logout', 'AuthController@logout');
+
 Route::get('/', 'PageController@home');
 Route::get('/product/{slug}', 'PageController@productDetail');
 
@@ -33,10 +39,7 @@ Route::get('/admin/auth', function () {
     return auth()->user();
 });
 
-Route::get('/logout', function () {
-    auth()->logout();
-    return 'logout';
-});
+
 
 Route::get('/test', function () {
     return Category::withCount('product')->get();

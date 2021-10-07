@@ -1,5 +1,28 @@
 @extends('layout.master')
 @section('content')
+<div class="card p-1">
+    <form action="" class="row" method="GET">
+        <div class="col-md-4">
+            <select name="color_slug" class="form-control">
+                <option value="">Select Color</option>
+                @foreach ($color as $c)
+                <option value="{{$c->slug}}">{{$c->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select name="size_slug" class="form-control">
+                <option value="">Select Size</option>
+                @foreach ($size as $c)
+                <option value="{{$c->slug}}">{{$c->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-4">
+            <input type="submit" value="Filter" class="btn btn-primary">
+        </div>
+    </form>
+</div>
 <div class="row">
     <!-- Loop Product -->
     @foreach($products as $p)
