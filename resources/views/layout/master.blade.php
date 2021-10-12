@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MM-Coder-Shop</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://demos.creative-tim.com/argon-dashboard/assets/vendor/nucleo/css/nucleo.css">
     <link rel="stylesheet"
         href="https://demos.creative-tim.com/argon-dashboard/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
@@ -44,7 +45,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home </a>
+                        <a class="nav-link" href="{{url('/')}}">Home </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Your Order</a>
@@ -69,9 +70,9 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+                        <a class="nav-link" href="{{url('/cart')}}" tabindex="-1" aria-disabled="true">
                             Cart
-                            <small class="badge badge-danger">7</small>
+                            <small class="badge badge-danger">{{ auth()->check() ? $cart_count : 'login'}}</small>
                         </a>
                     </li>
                 </ul>
@@ -119,9 +120,12 @@
                 <div class="card">
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item bg-dark text-white">
-                                Your Order List
-                            </li>
+                            <a href="{{url('/order-list')}}">
+                                <li class="list-group-item bg-dark text-white">
+                                    Your Order List
+                                </li>
+                            </a>
+
                             <li class="list-group-item bg-danger text-white">
                                 Your Profile Info
                             </li>
@@ -174,8 +178,9 @@
         @if(session()->has('error'))
         toastr.error("{{session()->get('error')}}");
         @endif
-
     </script>
+
+    @yield('script')
 </body>
 
 </html>

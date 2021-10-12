@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Redis;
 
 class Product extends Model
 {
@@ -36,5 +37,10 @@ class Product extends Model
     public function getImageUrlAttribute()
     {
         return '/public/images/' . $this->image;
+    }
+
+    public function review()
+    {
+        return $this->hasMany(Review::class);
     }
 }

@@ -5,12 +5,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/register', 'AuthController@showRegister');
 Route::post('/register', 'AuthController@register');
-Route::get('/login', 'AuthController@showLogin');
+Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login');
 Route::get('/logout', 'AuthController@logout');
 
 Route::get('/', 'PageController@home');
-Route::get('/product/{slug}', 'PageController@productDetail');
+Route::get('/product/{slug}', 'PageController@productDetail')->name('product.detail');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/cart', 'CartController@showCart');
+    Route::get('add-cart', 'CartController@addToCart');
+    Route::post('update-cart', 'CartController@updateCart');
+    Route::get('/order', 'OrderController@makeOrder');
+    Route::get('/order-list', 'OrderController@orderList');
+
+    Route::post('/create-review', 'PageController@makeReview');
+});
+
+
 
 
 Route::get('admin/login', 'Admin\AuthController@showLogin');
@@ -21,6 +33,9 @@ Route::group(['prefix' => 'admin', 'namespace' => "Admin", 'middleware' => "Admi
 
     Route::resource('category', 'CategoryController');
     Route::resource('product', 'ProductController');
+
+    Route::get('/order', 'OrderController@index');
+    Route::get('/change-order', 'OrderController@change');
 });
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -27,6 +28,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::share('category', Category::withCount('product')->get());
+
+
+        view()->composer('*', function ($view) {
+            $cart_count = Cart::where('user_id', auth()->id())->count();
+            $view->with('cart_count', $cart_count);
+        });
+
+
         Paginator::useBootstrap();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Size;
 use Illuminate\Http\Request;
 
@@ -55,10 +56,28 @@ class PageController extends Controller
 
     public function productDetail($slug)
     {
-        $p = Product::where('slug', $slug)->with('category', 'size', 'color')->first();
+        $p = Product::where('slug', $slug)->with('category', 'size', 'color')
+            ->with(['review' => function ($q) {
+                $q->latest()->with('user');
+            }])
+            ->first();
+
+
         if ($p) {
             return view('product_detail', compact('p'));
         }
         return redirect()->back();
+    }
+
+    public function makeReview()
+    {
+        $product_id = Product::where('slug', request()->product_slug)->first()->id;
+        $user_id  = auth()->id();
+        Review::create([
+            'review' => request()->review,
+            'product_id' => $product_id,
+            'user_id' => $user_id,
+        ]);
+        return 'success';
     }
 }

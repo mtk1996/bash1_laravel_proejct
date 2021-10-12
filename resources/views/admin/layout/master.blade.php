@@ -68,6 +68,12 @@
                                 <span class="nav-link-text">Product</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('admin/order')}}">
+                                <i class="ni ni-tv-2 text-primary"></i>
+                                <span class="nav-link-text">Orders</span>
+                            </a>
+                        </li>
 
                     </ul>
 
