@@ -85,3 +85,115 @@ git VPS
 
 
 
+
+
+
+likes
+=====
+user_id     product_id
+
+
+isLiked=true
+
+if(isLiked){
+    //async requesst
+}else{
+    //async insert into likes table
+}
+
+
+
+
+
+<?php
+
+mysqli_connect('localhost','mmgzcom_shopping','shopping123!@#','mmgzcom_shopping') or die(mysqli_connect_error());
+echo 'connect';
+
+
+
+
+
+
+
+
+
+
+
+
+Deployment
+===========
+Free Domain For Testing
+https://domin.se.ke/
+
+install  mysql
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04
+
+install phpmyadmin
+https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-20-04
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'Hello123!@#World';
+
+
+
+Laravel Need Extension
+======================
+sudo apt install openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip
+
+
+disable .env
+=============
+
+<Files ~ "^.*\.([Ee][Nn][Vv])">
+ order allow,deny
+ deny from all
+ satisfy all
+</Files>
+
+
+VirtualHost SEtup
+==================
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ServerName test.com
+        ServerAlias www.test.com
+        DocumentRoot /var/www/business.mmc-shopping.se.ke
+
+        <Directory /var/www/business.mmc-shopping.se.ke/>
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Require all granted
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        <IfModule mod_dir.c>
+            DirectoryIndex index.php index.pl index.cgi index.html index.xhtml index.htm
+        </IfModule>
+</VirtualHost>
+
+
+
+Laravel Route တွေအလုပ်မလုပ်ရင်
+etc/apache2/apaech2.conf
+
+VirtualHost မှာ AllowOverride All ပေးဖို့လိုတယ်
+sudo a2enmod rewrite
+systemctl reload apache2
+
+
+
+
+
+
+
+lamp
+
+server apache
+PHP and laravel and composer
+mysql
+phpmyadmin
+composer
+site configuration
+
