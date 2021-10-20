@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //$this->registerPolicies();
         View::share('category', Category::withCount('product')->get());
 
 
@@ -37,5 +39,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         Paginator::useBootstrap();
+
+        Passport::routes();
     }
 }
